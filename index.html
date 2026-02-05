@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Timo Kahilakoski | QA Manager - Netflix Resume</title>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
@@ -10,6 +10,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
         
         :root {
@@ -24,64 +25,111 @@
             color: var(--netflix-light);
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
         }
         
-        /* PRINT STYLES - Professional CV Layout */
+        /* PRINT STYLES */
         @media print {
-            @page {
-                size: A4;
-                margin: 15mm;
-            }
-            
-            body {
-                background: white !important;
-                color: black !important;
-                font-family: 'Roboto', 'Inter', sans-serif !important;
-                overflow: visible !important;
-            }
-            
-            /* Hide Netflix UI elements */
+            @page { size: A4; margin: 15mm; }
+            body { background: white !important; color: black !important; font-family: 'Roboto', sans-serif !important; }
             .nav, .hero, .content-row, .qr-section, .sound-toggle, 
             .my-list-counter, .footer, .modal-overlay, .contact-section,
             .skills-container, .slider, .card, .hero-buttons, 
-            .profile-photo-nav, .languages-bar {
-                display: none !important;
+            .profile-photo-nav, .languages-bar { display: none !important; }
+            .printable-resume { display: block !important; visibility: visible !important; }
+            .print-section { page-break-inside: avoid; margin-bottom: 20px; }
+        }
+        
+        .printable-resume { display: none; visibility: hidden; position: absolute; left: -9999px; }
+        
+        /* MOBILE FIXES */
+        @media (max-width: 768px) {
+            .logo { display: none; } /* Piilota tupla-nimi */
+            
+            .nav {
+                padding: 15px 4%;
+                background: rgba(0,0,0,0.9);
             }
             
-            /* Show printable resume */
-            .printable-resume {
-                display: block !important;
-                visibility: visible !important;
-                position: static !important;
-                width: 100% !important;
-                padding: 0 !important;
-                margin: 0 !important;
-                background: white !important;
-                color: black !important;
+            .hero {
+                height: auto;
+                min-height: 100vh;
+                padding: 80px 4% 40px;
             }
             
-            /* Ensure proper page breaks */
-            .print-section {
-                page-break-inside: avoid;
-                margin-bottom: 20px;
+            .hero h1 {
+                font-size: 3rem;
+                letter-spacing: 2px;
+                margin-top: 20px;
             }
             
-            h1, h2, h3 {
-                page-break-after: avoid;
+            .hero-subtitle {
+                font-size: 1.2rem;
             }
             
-            .experience-item, .education-item {
-                page-break-inside: avoid;
-                margin-bottom: 15px;
+            .hero-description {
+                font-size: 1rem;
+                line-height: 1.5;
+            }
+            
+            .languages-bar {
+                margin-top: 15px;
+                gap: 10px;
+            }
+            
+            .language-item {
+                padding: 6px 12px;
+                font-size: 0.85rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                gap: 10px;
+                margin-top: 20px;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .card {
+                width: 260px;
+                height: 150px;
+            }
+            
+            .card-logo { font-size: 1.5rem; }
+            .card-title { font-size: 1rem; }
+            .card-meta { font-size: 0.8rem; }
+            
+            .modal-content {
+                margin: 0;
+                border-radius: 0;
+                min-height: 100vh;
+            }
+            
+            .modal-hero { height: 300px; }
+            .modal-logo { font-size: 2.5rem; }
+            .modal-stats { grid-template-columns: 1fr; }
+            
+            .skills-container {
+                gap: 8px;
+            }
+            
+            .skill-item {
+                font-size: 0.85rem;
+                padding: 6px 12px;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
             }
         }
         
-        /* Screen styles for printable section (hidden by default) */
-        .printable-resume {
-            display: none;
-            visibility: hidden;
-            position: absolute;
-            left: -9999px;
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 2.2rem; }
+            .row-title { font-size: 1.2rem; }
+            .card { width: 220px; height: 130px; }
         }
         
         .sound-toggle {
@@ -102,9 +150,7 @@
             transition: all 0.3s;
         }
         
-        .sound-toggle:hover {
-            background: var(--netflix-red);
-        }
+        .sound-toggle:hover { background: var(--netflix-red); }
         
         .modal-overlay {
             display: none;
@@ -119,9 +165,7 @@
             animation: fadeIn 0.3s ease;
         }
         
-        .modal-overlay.active {
-            display: block;
-        }
+        .modal-overlay.active { display: block; }
         
         @keyframes fadeIn {
             from { opacity: 0; }
@@ -163,9 +207,7 @@
             transition: background 0.3s;
         }
         
-        .modal-close:hover {
-            background: var(--netflix-red);
-        }
+        .modal-close:hover { background: var(--netflix-red); }
         
         .modal-hero {
             height: 400px;
@@ -208,12 +250,10 @@
             align-items: center;
             margin-bottom: 20px;
             font-size: 1rem;
+            flex-wrap: wrap;
         }
         
-        .modal-match {
-            color: #46d369;
-            font-weight: 700;
-        }
+        .modal-match { color: #46d369; font-weight: 700; }
         
         .modal-tags {
             display: flex;
@@ -229,9 +269,7 @@
             background: rgba(0,0,0,0.5);
         }
         
-        .modal-body {
-            padding: 30px;
-        }
+        .modal-body { padding: 30px; }
         
         .modal-description {
             font-size: 1.1rem;
@@ -240,9 +278,7 @@
             color: #d2d2d2;
         }
         
-        .modal-section {
-            margin-bottom: 30px;
-        }
+        .modal-section { margin-bottom: 30px; }
         
         .modal-section-title {
             font-size: 1.2rem;
@@ -251,9 +287,7 @@
             color: var(--netflix-light);
         }
         
-        .modal-list {
-            list-style: none;
-        }
+        .modal-list { list-style: none; }
         
         .modal-list li {
             padding: 8px 0;
@@ -309,9 +343,7 @@
             transition: background-color 0.4s;
         }
         
-        .nav.scrolled {
-            background-color: var(--netflix-dark);
-        }
+        .nav.scrolled { background-color: var(--netflix-dark); }
         
         .logo {
             font-family: 'Bebas Neue', sans-serif;
@@ -334,9 +366,7 @@
             transition: color 0.3s;
         }
         
-        .nav-links a:hover {
-            color: var(--netflix-gray);
-        }
+        .nav-links a:hover { color: var(--netflix-gray); }
         
         .profile-photo-nav {
             width: 40px;
@@ -348,9 +378,7 @@
             cursor: pointer;
         }
         
-        .profile-photo-nav:hover {
-            border-color: var(--netflix-red);
-        }
+        .profile-photo-nav:hover { border-color: var(--netflix-red); }
         
         .profile-photo-nav img {
             width: 100%;
@@ -358,7 +386,17 @@
             object-fit: cover;
         }
         
-        /* NÄKYVÄ TAUSTA */
+        .hero {
+            position: relative;
+            height: 85vh;
+            background-color: #141414;
+            display: flex;
+            align-items: center;
+            padding: 0 4%;
+            margin-bottom: 40px;
+            overflow: hidden;
+        }
+        
         .hero::before {
             content: '';
             position: absolute;
@@ -382,7 +420,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg '%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
             opacity: 0.15;
             pointer-events: none;
             z-index: 1;
@@ -392,21 +430,6 @@
             0%, 100% { transform: translate(0, 0) scale(1); }
             33% { transform: translate(50px, -30px) scale(1.2); }
             66% { transform: translate(-30px, 20px) scale(0.9); }
-        }
-        
-        .hero {
-            position: relative;
-            height: 85vh;
-            background-color: #141414;
-            display: flex;
-            align-items: center;
-            padding: 0 4%;
-            margin-bottom: 40px;
-            overflow: hidden;
-        }
-        
-        .hero-video-bg {
-            display: none;
         }
         
         .hero-content {
@@ -422,12 +445,10 @@
             gap: 15px;
             margin-bottom: 20px;
             font-size: 0.9rem;
+            flex-wrap: wrap;
         }
         
-        .match {
-            color: #46d369;
-            font-weight: 700;
-        }
+        .match { color: #46d369; font-weight: 700; }
         
         .hero h1 {
             font-family: 'Bebas Neue', sans-serif;
@@ -455,6 +476,7 @@
         .hero-buttons {
             display: flex;
             gap: 15px;
+            flex-wrap: wrap;
         }
         
         .btn {
@@ -504,6 +526,8 @@
             backdrop-filter: blur(10px);
         }
         
+        @media (max-width: 1100px) { .qr-section { display: none; } }
+        
         .qr-code {
             width: 120px;
             height: 120px;
@@ -513,10 +537,7 @@
             margin-bottom: 10px;
         }
         
-        .qr-text {
-            font-size: 0.8rem;
-            color: var(--netflix-gray);
-        }
+        .qr-text { font-size: 0.8rem; color: var(--netflix-gray); }
         
         .scan-text {
             color: var(--netflix-red);
@@ -559,11 +580,11 @@
             overflow-x: auto;
             scroll-behavior: smooth;
             padding: 20px 0;
+            -webkit-overflow-scrolling: touch;
+            scroll-snap-type: x mandatory;
         }
         
-        .slider::-webkit-scrollbar {
-            display: none;
-        }
+        .slider::-webkit-scrollbar { display: none; }
         
         .card {
             flex: 0 0 auto;
@@ -576,6 +597,26 @@
             transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             background-color: #2f2f2f;
             transform-origin: center;
+            scroll-snap-align: start;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        
+        /* Mobile touch active state */
+        .card.touch-active {
+            transform: scale(1.08) translateY(-10px);
+            z-index: 100;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+        }
+        
+        .card.touch-active .card-tags {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .card.touch-active .card-details {
+            max-height: 200px;
+            margin-top: 10px;
         }
         
         .card:hover {
@@ -595,9 +636,7 @@
             transition: left 0.5s;
         }
         
-        .card:hover::before {
-            left: 100%;
-        }
+        .card:hover::before { left: 100%; }
         
         .card-overlay {
             position: absolute;
@@ -723,6 +762,7 @@
             align-items: center;
             gap: 8px;
             border: 2px solid transparent;
+            user-select: none;
         }
         
         .skill-item:hover {
@@ -734,11 +774,6 @@
         .skill-item.added {
             background: var(--netflix-red);
             border-color: var(--netflix-red);
-        }
-        
-        .skill-item.added::after {
-            content: "✓";
-            margin-left: 5px;
         }
         
         .add-btn {
@@ -816,11 +851,10 @@
             align-items: center;
             justify-content: center;
             font-size: 1.2rem;
+            flex-shrink: 0;
         }
         
-        .contact-text {
-            font-size: 0.9rem;
-        }
+        .contact-text { font-size: 0.9rem; word-break: break-word; }
         
         .contact-label {
             color: var(--netflix-gray);
@@ -845,9 +879,7 @@
             font-size: 0.9rem;
         }
         
-        .lang-flag {
-            font-size: 1.2rem;
-        }
+        .lang-flag { font-size: 1.2rem; }
         
         .lang-level {
             color: #46d369;
@@ -878,13 +910,10 @@
             transition: color 0.3s;
         }
         
-        .footer-links a:hover {
-            color: var(--netflix-red);
-        }
+        .footer-links a:hover { color: var(--netflix-red); }
         
-        /* PRINTABLE RESUME STYLES */
         .printable-resume {
-            font-family: 'Roboto', 'Inter', sans-serif;
+            font-family: 'Roboto', sans-serif;
             line-height: 1.6;
             color: #333;
             max-width: 210mm;
@@ -899,13 +928,9 @@
             margin-bottom: 5px;
             border-bottom: 3px solid #E50914;
             padding-bottom: 10px;
-            font-family: 'Roboto', sans-serif;
         }
         
-        .printable-resume .print-header {
-            text-align: center;
-            margin-bottom: 20px;
-        }
+        .printable-resume .print-header { text-align: center; margin-bottom: 20px; }
         
         .printable-resume .print-contact {
             font-size: 10pt;
@@ -942,15 +967,8 @@
             margin-bottom: 5px;
         }
         
-        .printable-resume ul {
-            margin: 5px 0;
-            padding-left: 20px;
-        }
-        
-        .printable-resume li {
-            margin-bottom: 3px;
-            font-size: 10.5pt;
-        }
+        .printable-resume ul { margin: 5px 0; padding-left: 20px; }
+        .printable-resume li { margin-bottom: 3px; font-size: 10.5pt; }
         
         .printable-resume .skills-grid {
             display: grid;
@@ -966,17 +984,7 @@
             font-size: 10pt;
         }
         
-        @media (max-width: 1100px) {
-            .qr-section { display: none; }
-        }
-        
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 3rem; }
-            .card { width: 240px; height: 135px; }
-            .modal-content { margin: 20px; }
-            .modal-stats { grid-template-columns: 1fr; }
-            .contact-grid { grid-template-columns: 1fr; }
-        }
+        @media (max-width: 1100px) { .qr-section { display: none; } }
     </style>
 </head>
 <body>
@@ -986,7 +994,7 @@
         My List: <span id="listCount">0</span> skills
     </div>
 
-    <!-- PRINTABLE RESUME SECTION (Hidden on screen, shown when printing) -->
+    <!-- PRINTABLE RESUME -->
     <div class="printable-resume">
         <div class="print-header">
             <h1>TIMO KAHILAKOSKI</h1>
@@ -1540,7 +1548,6 @@
                 <div class="modal-description">
                     Advanced studies in Software Production Testing focusing on quality assurance frameworks, test automation strategies, and software quality metrics. Studies included ISO/IEC 9126 and ISO/IEC 25000 quality standards, continuous integration testing, and industrial software development practices.
                 </div>
-                
                 <div class="modal-section">
                     <h3 class="modal-section-title">Key Studies</h3>
                     <ul class="modal-list">
@@ -1552,14 +1559,6 @@
                         <li>Software Reliability Engineering</li>
                     </ul>
                 </div>
-
-                <div class="modal-section">
-                    <h3 class="modal-section-title">Thesis Focus</h3>
-                    <p style="color: #d2d2d2; margin-bottom: 15px;">
-                        Practical application of software quality analysis in industrial settings, focusing on automated testing pipelines and quality measurement systems for enterprise software products.
-                    </p>
-                </div>
-
                 <div class="modal-stats">
                     <div class="modal-stat"><span class="modal-stat-number">60</span><span class="modal-stat-label">ECTS Credits</span></div>
                     <div class="modal-stat"><span class="modal-stat-number">A</span><span class="modal-stat-label">Grade</span></div>
@@ -1592,7 +1591,6 @@
                 <div class="modal-description">
                     Professional Bachelor-level degree in Information Technology specializing in Network and Telecommunications. Finnish polytechnic (ammattikorkeakoulu) education combining theoretical studies with hands-on practical training in enterprise network environments.
                 </div>
-                
                 <div class="modal-section">
                     <h3 class="modal-section-title">Core Competencies</h3>
                     <ul class="modal-list">
@@ -1604,14 +1602,6 @@
                         <li>Cabling & Infrastructure</li>
                     </ul>
                 </div>
-
-                <div class="modal-section">
-                    <h3 class="modal-section-title">Practical Training</h3>
-                    <p style="color: #d2d2d2; margin-bottom: 15px;">
-                        Extensive hands-on training in real workplace environments including network troubleshooting, hardware diagnostics, and enterprise system maintenance. Part of Finnish vocational qualification system (180 competence points).
-                    </p>
-                </div>
-
                 <div class="modal-stats">
                     <div class="modal-stat"><span class="modal-stat-number">180</span><span class="modal-stat-label">Credit Points</span></div>
                     <div class="modal-stat"><span class="modal-stat-number">3.5</span><span class="modal-stat-label">Years</span></div>
@@ -1644,7 +1634,6 @@
                 <div class="modal-description">
                     Bachelor-level studies in Electrical Engineering and Automation Technology. Foundation in electrical systems, automation technology, and electronic device maintenance. Finnish vocational qualification (sähkö- ja automaatioalan perustutkinto).
                 </div>
-                
                 <div class="modal-section">
                     <h3 class="modal-section-title">Study Modules</h3>
                     <ul class="modal-list">
@@ -1656,17 +1645,6 @@
                         <li>Industrial Electronics</li>
                     </ul>
                 </div>
-
-                <div class="modal-section">
-                    <h3 class="modal-section-title">Skills Acquired</h3>
-                    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                        <span class="tag">Electrical Safety</span>
-                        <span class="tag">Automation</span>
-                        <span class="tag">Troubleshooting</span>
-                        <span class="tag">Technical Reading</span>
-                    </div>
-                </div>
-
                 <div class="modal-stats">
                     <div class="modal-stat"><span class="modal-stat-number">180</span><span class="modal-stat-label">Credit Points</span></div>
                     <div class="modal-stat"><span class="modal-stat-number">3.5</span><span class="modal-stat-label">Years</span></div>
@@ -1699,7 +1677,6 @@
                 <div class="modal-description">
                     Finnish vocational qualification in Information Technology and Business Administration (Liketoiminnan perustutkinto / Merkonomi). Three-year secondary level education providing foundational skills for business IT environments, customer service, and office administration.
                 </div>
-                
                 <div class="modal-section">
                     <h3 class="modal-section-title">Curriculum Highlights</h3>
                     <ul class="modal-list">
@@ -1711,279 +1688,10 @@
                         <li>Data Processing & Documentation</li>
                     </ul>
                 </div>
-
-                <div class="modal-section">
-                    <h3 class="modal-section-title">Foundation For</h3>
-                    <p style="color: #d2d2d2; margin-bottom: 15px;">
-                        Provided essential business understanding and IT fundamentals that served as stepping stones to higher technical education and professional QA career.
-                    </p>
-                </div>
-
                 <div class="modal-stats">
                     <div class="modal-stat"><span class="modal-stat-number">120</span><span class="modal-stat-label">Credit Points</span></div>
                     <div class="modal-stat"><span class="modal-stat-number">3</span><span class="modal-stat-label">Years</span></div>
                     <div class="modal-stat"><span class="modal-stat-number">EQF 4</span><span class="modal-stat-label">Level</span></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- TOOLS MODALS -->
-    <div id="modal-aws" class="modal-overlay" onclick="closeModal('aws', event)">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <button class="modal-close" onclick="closeModal('aws')">×</button>
-            <div class="modal-hero" style="background: linear-gradient(135deg, #232f3e 0%, #ff9900 100%);">
-                <div class="modal-hero-content">
-                    <div class="modal-logo" style="font-size: 2.5rem;">AWS DEVICE FARM</div>
-                    <div class="modal-meta">
-                        <span class="modal-match">Expert</span>
-                        <span>2018-Present</span>
-                        <span>•</span>
-                        <span>Cloud Testing</span>
-                    </div>
-                    <div class="modal-tags">
-                        <span class="modal-tag">Real Devices</span>
-                        <span class="modal-tag">Automation</span>
-                        <span class="modal-tag">CI/CD</span>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-body">
-                <div class="modal-description">
-                    Extensive hands-on experience with AWS Device Farm for automated mobile testing on real devices in the cloud. Used for daily regression testing, performance monitoring, and ensuring cross-platform compatibility across various device models and OS versions.
-                </div>
-                
-                <div class="modal-section">
-                    <h3 class="modal-section-title">Technical Specs</h3>
-                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; font-size: 0.9rem; color: #d2d2d2;">
-                        <div><strong>Platform:</strong> Amazon Web Services</div>
-                        <div><strong>Devices:</strong> 1000+ Real Devices</div>
-                        <div><strong>Test Types:</strong> Appium, XCTest, Espresso</div>
-                        <div><strong>Parallel:</strong> Unlimited Sessions</div>
-                        <div><strong>Integration:</strong> Jenkins, GitHub, CLI</div>
-                        <div><strong>Reporting:</strong> Built-in Logs & Video</div>
-                    </div>
-                </div>
-
-                <div class="modal-section">
-                    <h3 class="modal-section-title">Used In Projects</h3>
-                    <ul class="modal-list">
-                        <li><strong>Merge Mansion (Metacore):</strong> Daily automated regression suites across 50+ device configurations</li>
-                        <li><strong>Next Games:</strong> Cross-platform compatibility testing for story-driven RPG</li>
-                        <li><strong>Seriously Digital:</strong> Performance monitoring and crash detection</li>
-                    </ul>
-                </div>
-
-                <div class="modal-section">
-                    <h3 class="modal-section-title">Proficiency</h3>
-                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-                        <div style="flex: 1; background: rgba(255,255,255,0.1); height: 8px; border-radius: 4px; overflow: hidden;">
-                            <div style="width: 90%; height: 100%; background: #ff9900; border-radius: 4px;"></div>
-                        </div>
-                        <span style="color: #ff9900; font-weight: bold;">9/10</span>
-                    </div>
-                    <p style="font-size: 0.85rem; color: #808080;">Advanced - Can setup complex test matrices, integrate with CI/CD, and optimize cost/device coverage ratio</p>
-                </div>
-
-                <div class="modal-stats">
-                    <div class="modal-stat"><span class="modal-stat-number">7+</span><span class="modal-stat-label">Years</span></div>
-                    <div class="modal-stat"><span class="modal-stat-number">1000s</span><span class="modal-stat-label">Test Runs</span></div>
-                    <div class="modal-stat"><span class="modal-stat-number">Daily</span><span class="modal-stat-label">Usage</span></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-jenkins" class="modal-overlay" onclick="closeModal('jenkins', event)">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <button class="modal-close" onclick="closeModal('jenkins')">×</button>
-            <div class="modal-hero" style="background: linear-gradient(135deg, #1a1a1a 0%, #d24939 100%);">
-                <div class="modal-hero-content">
-                    <div class="modal-logo" style="font-size: 2.5rem;">JENKINS</div>
-                    <div class="modal-meta">
-                        <span class="modal-match">Advanced</span>
-                        <span>2016-Present</span>
-                        <span>•</span>
-                        <span>CI/CD</span>
-                    </div>
-                    <div class="modal-tags">
-                        <span class="modal-tag">Pipeline</span>
-                        <span class="modal-tag">Automation</span>
-                        <span class="modal-tag">Build</span>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-body">
-                <div class="modal-description">
-                    Built and maintained Jenkins pipelines for automated builds, testing and deployments. Deep expertise in Pipeline-as-Code (Jenkinsfile), plugin management, and integrating testing frameworks into continuous integration workflows.
-                </div>
-                
-                <div class="modal-section">
-                    <h3 class="modal-section-title">Technical Specs</h3>
-                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; font-size: 0.9rem; color: #d2d2d2;">
-                        <div><strong>Type:</strong> Open Source CI/CD</div>
-                        <div><strong>Pipeline:</strong> Declarative & Scripted</div>
-                        <div><strong>Integration:</strong> Git, Perforce, SVN</div>
-                        <div><strong>Plugins:</strong> 100+ configured</div>
-                        <div><strong>Nodes:</strong> Distributed builds</div>
-                        <div><strong>Reporting:</strong> Test result aggregation</div>
-                    </div>
-                </div>
-
-                <div class="modal-section">
-                    <h3 class="modal-section-title">Used In Projects</h3>
-                    <ul class="modal-list">
-                        <li><strong>Metacore:</strong> Automated build pipeline for Merge Mansion (iOS/Android)</li>
-                        <li><strong>Next Games:</strong> Story-driven game build automation with asset validation</li>
-                        <li><strong>Rovio:</strong> PvP game CI/CD with rapid iteration cycles</li>
-                    </ul>
-                </div>
-
-                <div class="modal-section">
-                    <h3 class="modal-section-title">Proficiency</h3>
-                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-                        <div style="flex: 1; background: rgba(255,255,255,0.1); height: 8px; border-radius: 4px; overflow: hidden;">
-                            <div style="width: 85%; height: 100%; background: #d24939; border-radius: 4px;"></div>
-                        </div>
-                        <span style="color: #d24939; font-weight: bold;">8.5/10</span>
-                    </div>
-                    <p style="font-size: 0.85rem; color: #808080;">Advanced - Pipeline architecture, Groovy scripting, multi-branch pipelines, and complex build matrices</p>
-                </div>
-
-                <div class="modal-stats">
-                    <div class="modal-stat"><span class="modal-stat-number">9+</span><span class="modal-stat-label">Years</span></div>
-                    <div class="modal-stat"><span class="modal-stat-number">50+</span><span class="modal-stat-label">Pipelines</span></div>
-                    <div class="modal-stat"><span class="modal-stat-number">10k+</span><span class="modal-stat-label">Builds</span></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-jira" class="modal-overlay" onclick="closeModal('jira', event)">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <button class="modal-close" onclick="closeModal('jira')">×</button>
-            <div class="modal-hero" style="background: linear-gradient(135deg, #0052cc 0%, #2684ff 100%);">
-                <div class="modal-hero-content">
-                    <div class="modal-logo" style="font-size: 2.5rem;">JIRA</div>
-                    <div class="modal-meta">
-                        <span class="modal-match">Expert</span>
-                        <span>2011-Present</span>
-                        <span>•</span>
-                        <span>Project Management</span>
-                    </div>
-                    <div class="modal-tags">
-                        <span class="modal-tag">Agile</span>
-                        <span class="modal-tag">Scrum</span>
-                        <span class="modal-tag">Bug Tracking</span>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-body">
-                <div class="modal-description">
-                    Daily power user of Jira for agile project management, bug tracking, and test case management. Experienced in workflow customization, dashboard creation, and integration with testing tools like TestRail and Xray.
-                </div>
-                
-                <div class="modal-section">
-                    <h3 class="modal-section-title">Technical Specs</h3>
-                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; font-size: 0.9rem; color: #d2d2d2;">
-                        <div><strong>Platform:</strong> Atlassian Cloud/Server</div>
-                        <div><strong>Methodology:</strong> Scrum & Kanban</div>
-                        <div><strong>Integration:</strong> TestRail, Xray, Slack</div>
-                        <div><strong>Reporting:</strong> Dashboards & Filters</div>
-                        <div><strong>Admin:</strong> Workflow customization</div>
-                        <div><strong>Automation:</strong> Jira Automation rules</div>
-                    </div>
-                </div>
-
-                <div class="modal-section">
-                    <h3 class="modal-section-title">Used In Projects</h3>
-                    <ul class="modal-list">
-                        <li><strong>All Companies:</strong> Daily bug triage and sprint management</li>
-                        <li><strong>Metacore:</strong> 15-person QA team coordination</li>
-                        <li><strong>Seriously:</strong> LiveOps feature tracking</li>
-                    </ul>
-                </div>
-
-                <div class="modal-section">
-                    <h3 class="modal-section-title">Proficiency</h3>
-                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-                        <div style="flex: 1; background: rgba(255,255,255,0.1); height: 8px; border-radius: 4px; overflow: hidden;">
-                            <div style="width: 95%; height: 100%; background: #2684ff; border-radius: 4px;"></div>
-                        </div>
-                        <span style="color: #2684ff; font-weight: bold;">9.5/10</span>
-                    </div>
-                    <p style="font-size: 0.85rem; color: #808080;">Expert - Advanced JQL queries, complex workflows, administrative configuration, and integrations</p>
-                </div>
-
-                <div class="modal-stats">
-                    <div class="modal-stat"><span class="modal-stat-number">14+</span><span class="modal-stat-label">Years</span></div>
-                    <div class="modal-stat"><span class="modal-stat-number">1000s</span><span class="modal-stat-label">Tickets</span></div>
-                    <div class="modal-stat"><span class="modal-stat-number">Daily</span><span class="modal-stat-label">Use</span></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-unity" class="modal-overlay" onclick="closeModal('unity', event)">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <button class="modal-close" onclick="closeModal('unity')">×</button>
-            <div class="modal-hero" style="background: linear-gradient(135deg, #1a1a1a 0%, #ffffff 100%);">
-                <div class="modal-hero-content">
-                    <div class="modal-logo" style="font-size: 2.5rem; color: #1a1a1a;">UNITY</div>
-                    <div class="modal-meta" style="color: #1a1a1a;">
-                        <span class="modal-match" style="color: #1a1a1a;">Proficient</span>
-                        <span>2016-Present</span>
-                        <span>•</span>
-                        <span>Game Engine</span>
-                    </div>
-                    <div class="modal-tags">
-                        <span class="modal-tag" style="border-color: #1a1a1a; color: #1a1a1a;">Testing</span>
-                        <span class="modal-tag" style="border-color: #1a1a1a; color: #1a1a1a;">Profiling</span>
-                        <span class="modal-tag" style="border-color: #1a1a1a; color: #1a1a1a;">Mobile</span>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-body">
-                <div class="modal-description">
-                    Strong understanding of Unity engine from QA perspective. Experience in testing Unity-based mobile games, performance profiling with GameBench and Unity Profiler, and identifying engine-specific issues.
-                </div>
-                
-                <div class="modal-section">
-                    <h3 class="modal-section-title">Technical Specs</h3>
-                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; font-size: 0.9rem; color: #d2d2d2;">
-                        <div><strong>Platform:</strong> Unity 3D Engine</div>
-                        <div><strong>Focus:</strong> Mobile (iOS/Android)</div>
-                        <div><strong>Profiling:</strong> Unity Profiler, GameBench</div>
-                        <div><strong>Testing:</strong> Editor & Device</div>
-                        <div><strong>Tools:</strong> Android Studio, Xcode</div>
-                        <div><strong>Automation:</strong> Unity Test Framework</div>
-                    </div>
-                </div>
-
-                <div class="modal-section">
-                    <h3 class="modal-section-title">Used In Projects</h3>
-                    <ul class="modal-list">
-                        <li><strong>Merge Mansion:</strong> Unity-based merge game testing</li>
-                        <li><strong>Next Games:</strong> Story-driven Unity RPG</li>
-                        <li><strong>Skunkworks:</strong> Unity mobile title end-to-end testing</li>
-                    </ul>
-                </div>
-
-                <div class="modal-section">
-                    <h3 class="modal-section-title">Proficiency</h3>
-                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-                        <div style="flex: 1; background: rgba(255,255,255,0.1); height: 8px; border-radius: 4px; overflow: hidden;">
-                            <div style="width: 80%; height: 100%; background: #fff; border-radius: 4px;"></div>
-                        </div>
-                        <span style="color: #fff; font-weight: bold;">8/10</span>
-                    </div>
-                    <p style="font-size: 0.85rem; color: #808080;">Proficient - Strong QA perspective on Unity, performance testing, and build pipeline integration (not C# development)</p>
-                </div>
-
-                <div class="modal-stats">
-                    <div class="modal-stat"><span class="modal-stat-number">9+</span><span class="modal-stat-label">Years</span></div>
-                    <div class="modal-stat"><span class="modal-stat-number">10+</span><span class="modal-stat-label">Titles</span></div>
-                    <div class="modal-stat"><span class="modal-stat-number">Mobile</span><span class="modal-stat-label">Focus</span></div>
                 </div>
             </div>
         </div>
@@ -1998,7 +1706,7 @@
             <a href="#education">Education</a>
             <a href="#skills">Skills</a>
             <div class="profile-photo-nav" title="Your Profile Photo">
-                <img src="timo.jpg" alt="Profile" onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg, #667eea 0%, #764ba2 100%)'; this.parentElement.innerHTML='TK';">
+                <img src="YOUR_PHOTO.jpg" alt="Profile" onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg, #667eea 0%, #764ba2 100%)'; this.parentElement.innerHTML='TK';">
             </div>
         </div>
     </nav>
@@ -2047,7 +1755,7 @@
         
         <div class="qr-section">
             <div class="scan-text">SCAN TO CONNECT</div>
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https%3A%2F%2Fwww.linkedin.com%2Fin%2Ftimokahilakoski%2F " alt="LinkedIn QR" class="qr-code">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https%3A%2F%2Fwww.linkedin.com%2Fin%2Ftimokahilakoski%2F" alt="LinkedIn QR" class="qr-code">
             <div class="qr-text">LinkedIn Profile</div>
         </div>
     </section>
@@ -2058,7 +1766,7 @@
             <h2 class="row-title">Trending Now <span class="row-count">Current</span></h2>
         </div>
         <div class="slider">
-            <div class="card show-crown" onclick="openModal('crown')" onmouseenter="playHoverSound()">
+            <div class="card show-crown" onclick="openModal('crown')" data-modal="crown">
                 <div class="top-badge">1</div>
                 <div class="card-overlay">
                     <div class="card-logo">THE CROWN</div>
@@ -2068,11 +1776,11 @@
                         <span class="tag">Leadership</span>
                         <span class="tag">15 Testers</span>
                     </div>
-                    <div class="card-details">Click for details ▸</div>
+                    <div class="card-details">Tap for details ▸</div>
                 </div>
             </div>
 
-            <div class="card show-black" onclick="openModal('black')" onmouseenter="playHoverSound()">
+            <div class="card show-black" onclick="openModal('black')" data-modal="black">
                 <div class="top-badge">2</div>
                 <div class="card-overlay">
                     <div class="card-logo">BLACK MIRROR</div>
@@ -2082,11 +1790,11 @@
                         <span class="tag">Netflix</span>
                         <span class="tag">Story-driven</span>
                     </div>
-                    <div class="card-details">Click for details ▸</div>
+                    <div class="card-details">Tap for details ▸</div>
                 </div>
             </div>
 
-            <div class="card show-ozark" onclick="openModal('ozark')" onmouseenter="playHoverSound()">
+            <div class="card show-ozark" onclick="openModal('ozark')" data-modal="ozark">
                 <div class="top-badge">3</div>
                 <div class="card-overlay">
                     <div class="card-logo">OZARK</div>
@@ -2096,11 +1804,11 @@
                         <span class="tag">End-to-End</span>
                         <span class="tag">F2P</span>
                     </div>
-                    <div class="card-details">Click for details ▸</div>
+                    <div class="card-details">Tap for details ▸</div>
                 </div>
             </div>
 
-            <div class="card show-money" onclick="openModal('money')" onmouseenter="playHoverSound()">
+            <div class="card show-money" onclick="openModal('money')" data-modal="money">
                 <div class="top-badge">4</div>
                 <div class="card-overlay">
                     <div class="card-logo">MONEY HEIST</div>
@@ -2110,7 +1818,7 @@
                         <span class="tag">-40% Bugs</span>
                         <span class="tag">Team Lead</span>
                     </div>
-                    <div class="card-details">Click for details ▸</div>
+                    <div class="card-details">Tap for details ▸</div>
                 </div>
             </div>
         </div>
@@ -2122,7 +1830,7 @@
             <h2 class="row-title">Continue Watching <span class="row-count">Previous</span></h2>
         </div>
         <div class="slider">
-            <div class="card show-witcher" onclick="openModal('witcher')" onmouseenter="playHoverSound()">
+            <div class="card show-witcher" onclick="openModal('witcher')" data-modal="witcher">
                 <div class="card-overlay">
                     <div class="card-logo">THE WITCHER</div>
                     <div class="card-title">Game Producer</div>
@@ -2131,11 +1839,11 @@
                         <span class="tag">PvP</span>
                         <span class="tag">Budget</span>
                     </div>
-                    <div class="card-details">Click for details ▸</div>
+                    <div class="card-details">Tap for details ▸</div>
                 </div>
             </div>
 
-            <div class="card show-stranger" onclick="openModal('stranger')" onmouseenter="playHoverSound()">
+            <div class="card show-stranger" onclick="openModal('stranger')" data-modal="stranger">
                 <div class="card-overlay">
                     <div class="card-logo">STRANGER THINGS</div>
                     <div class="card-title">QA Lead / Associate Producer</div>
@@ -2144,11 +1852,11 @@
                         <span class="tag">5 Years</span>
                         <span class="tag">F2P</span>
                     </div>
-                    <div class="card-details">Click for details ▸</div>
+                    <div class="card-details">Tap for details ▸</div>
                 </div>
             </div>
 
-            <div class="card show-wednesday" onclick="openModal('wednesday')" onmouseenter="playHoverSound()">
+            <div class="card show-wednesday" onclick="openModal('wednesday')" data-modal="wednesday">
                 <div class="card-overlay">
                     <div class="card-logo">WEDNESDAY</div>
                     <div class="card-title">Senior Test Engineer</div>
@@ -2157,11 +1865,11 @@
                         <span class="tag">Symbian</span>
                         <span class="tag">VMware</span>
                     </div>
-                    <div class="card-details">Click for details ▸</div>
+                    <div class="card-details">Tap for details ▸</div>
                 </div>
             </div>
 
-            <div class="card show-bridge" onclick="openModal('bridge')" onmouseenter="playHoverSound()">
+            <div class="card show-bridge" onclick="openModal('bridge')" data-modal="bridge">
                 <div class="card-overlay">
                     <div class="card-logo">BRIDGERTON</div>
                     <div class="card-title">IT Support</div>
@@ -2170,7 +1878,7 @@
                         <span class="tag">Hardware</span>
                         <span class="tag">Networks</span>
                     </div>
-                    <div class="card-details">Click for details ▸</div>
+                    <div class="card-details">Tap for details ▸</div>
                 </div>
             </div>
         </div>
@@ -2182,7 +1890,7 @@
             <h2 class="row-title">Behind the Scenes <span class="row-count">Tools & Tech</span></h2>
         </div>
         <div class="slider">
-            <div class="card show-aws" onclick="openModal('aws')" onmouseenter="playHoverSound()">
+            <div class="card show-aws" onclick="openModal('aws')" data-modal="aws">
                 <div class="card-overlay">
                     <div class="card-logo" style="font-size: 1.5rem;">CLOUD & TESTING</div>
                     <div class="card-title">AWS Device Farm</div>
@@ -2194,7 +1902,7 @@
                 </div>
             </div>
 
-            <div class="card show-jenkins" onclick="openModal('jenkins')" onmouseenter="playHoverSound()">
+            <div class="card show-jenkins" onclick="openModal('jenkins')" data-modal="jenkins">
                 <div class="card-overlay">
                     <div class="card-logo" style="font-size: 1.5rem;">CI/CD & DEVOPS</div>
                     <div class="card-title">Jenkins • Git • Perforce</div>
@@ -2206,7 +1914,7 @@
                 </div>
             </div>
 
-            <div class="card show-jira" onclick="openModal('jira')" onmouseenter="playHoverSound()">
+            <div class="card show-jira" onclick="openModal('jira')" data-modal="jira">
                 <div class="card-overlay">
                     <div class="card-logo" style="font-size: 1.5rem;">PROJECT MANAGEMENT</div>
                     <div class="card-title">Jira • TestRail • Xray</div>
@@ -2218,7 +1926,7 @@
                 </div>
             </div>
 
-            <div class="card show-unity" onclick="openModal('unity')" onmouseenter="playHoverSound()">
+            <div class="card show-unity" onclick="openModal('unity')" data-modal="unity">
                 <div class="card-overlay">
                     <div class="card-logo" style="font-size: 1.5rem;">GAME DEVELOPMENT</div>
                     <div class="card-title">Unity • GameBench</div>
@@ -2238,7 +1946,7 @@
             <h2 class="row-title">Classics <span class="row-count">Education</span></h2>
         </div>
         <div class="slider">
-            <div class="card" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);" onclick="openModal('tampere')" onmouseenter="playHoverSound()">
+            <div class="card" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);" onclick="openModal('tampere')" data-modal="tampere">
                 <div class="card-overlay">
                     <div class="card-logo" style="color: #fff; font-size: 1.3rem;">UNIVERSITY OF TAMPERE</div>
                     <div class="card-title">SW Production Testing</div>
@@ -2246,7 +1954,7 @@
                 </div>
             </div>
 
-            <div class="card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);" onclick="openModal('hamk-network')" onmouseenter="playHoverSound()">
+            <div class="card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);" onclick="openModal('hamk-network')" data-modal="hamk-network">
                 <div class="card-overlay">
                     <div class="card-logo" style="color: #fff; font-size: 1.3rem;">HAMK</div>
                     <div class="card-title">Network & Telecom</div>
@@ -2254,7 +1962,7 @@
                 </div>
             </div>
 
-            <div class="card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);" onclick="openModal('hamk-elec')" onmouseenter="playHoverSound()">
+            <div class="card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);" onclick="openModal('hamk-elec')" data-modal="hamk-elec">
                 <div class="card-overlay">
                     <div class="card-logo" style="color: #fff; font-size: 1.3rem;">HAMK</div>
                     <div class="card-title">Electrical Engineering</div>
@@ -2262,7 +1970,7 @@
                 </div>
             </div>
 
-            <div class="card" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);" onclick="openModal('business')" onmouseenter="playHoverSound()">
+            <div class="card" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);" onclick="openModal('business')" data-modal="business">
                 <div class="card-overlay">
                     <div class="card-logo" style="color: #1a1a1a; font-size: 1.3rem;">BUSINESS SCHOOL</div>
                     <div class="card-title">Vocational Qualification</div>
@@ -2278,7 +1986,7 @@
             <h2 class="row-title">New Releases <span class="row-count">Certifications</span></h2>
         </div>
         <div class="slider">
-            <div class="card" style="background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%); border: 2px solid #E50914;" onmouseenter="playHoverSound()">
+            <div class="card" style="background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%); border: 2px solid #E50914;">
                 <div class="card-overlay">
                     <div class="card-logo">ISTQB</div>
                     <div class="card-title">Agile Tester</div>
@@ -2286,7 +1994,7 @@
                 </div>
             </div>
 
-            <div class="card" style="background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%); border: 2px solid #E50914;" onmouseenter="playHoverSound()">
+            <div class="card" style="background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%); border: 2px solid #E50914;">
                 <div class="card-overlay">
                     <div class="card-logo">SCRUM ALLIANCE</div>
                     <div class="card-title">Certified Scrum Master</div>
@@ -2294,7 +2002,7 @@
                 </div>
             </div>
 
-            <div class="card" style="background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%); border: 2px solid #E50914;" onmouseenter="playHoverSound()">
+            <div class="card" style="background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%); border: 2px solid #E50914;">
                 <div class="card-overlay">
                     <div class="card-logo">ISTQB</div>
                     <div class="card-title">Foundation Level</div>
@@ -2403,7 +2111,7 @@
         <div class="footer-links">
             <a href="tel:+358405231658">📱 Call</a>
             <a href="mailto:timo.kahilakoski@gmail.com">✉️ Email</a>
-            <a href="https://linkedin.com/in/timokahilakoski " target="_blank">💼 LinkedIn</a>
+            <a href="https://linkedin.com/in/timokahilakoski" target="_blank">💼 LinkedIn</a>
         </div>
         <p>© 2026 Timo Kahilakoski | QA Manager</p>
         <p style="margin-top: 10px; font-size: 0.8rem;">Helsinki, Finland • 500+ Connections • Open to new opportunities</p>
@@ -2482,6 +2190,31 @@
             }
         });
         
+        // MOBILE TOUCH SUPPORT
+        document.querySelectorAll('.card').forEach(card => {
+            // Touch start - add visual feedback
+            card.addEventListener('touchstart', function(e) {
+                this.classList.add('touch-active');
+            }, {passive: true});
+            
+            // Touch end - remove visual feedback and open modal
+            card.addEventListener('touchend', function(e) {
+                this.classList.remove('touch-active');
+                // Get modal id from data attribute or onclick
+                const modalId = this.getAttribute('data-modal');
+                if (modalId) {
+                    setTimeout(() => {
+                        openModal(modalId);
+                    }, 100);
+                }
+            }, {passive: true});
+            
+            // Remove active state if touch is cancelled
+            card.addEventListener('touchcancel', function(e) {
+                this.classList.remove('touch-active');
+            }, {passive: true});
+        });
+        
         let myList = [];
         
         function toggleSkill(element, skill) {
@@ -2522,7 +2255,35 @@
             }
         });
 
+        // Better horizontal scrolling for mobile
         document.querySelectorAll('.slider').forEach(slider => {
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+            
+            slider.addEventListener('mousedown', (e) => {
+                isDown = true;
+                startX = e.pageX - slider.offsetLeft;
+                scrollLeft = slider.scrollLeft;
+            });
+            
+            slider.addEventListener('mouseleave', () => {
+                isDown = false;
+            });
+            
+            slider.addEventListener('mouseup', () => {
+                isDown = false;
+            });
+            
+            slider.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - slider.offsetLeft;
+                const walk = (x - startX) * 2;
+                slider.scrollLeft = scrollLeft - walk;
+            });
+            
+            // Wheel support
             slider.addEventListener('wheel', (e) => {
                 if (e.deltaY !== 0) {
                     e.preventDefault();
