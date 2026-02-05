@@ -51,10 +51,32 @@
                 background: rgba(0,0,0,0.9);
             }
             
+            /* KORJAUS: Lisää väliä navigaatiolinkkeihin */
+            .nav-links {
+                gap: 20px;
+                font-size: 0.9rem;
+                flex-wrap: wrap;
+                justify-content: center;
+                width: 100%;
+            }
+            
             .hero {
                 height: auto;
                 min-height: 100vh;
-                padding: 80px 4% 40px;
+                padding: 80px 4% 100px; /* KORJAUS: Lisätty alapaddingia 40px -> 100px */
+            }
+            
+            /* KORJAUS: Lisää väliä navin ja sisällön väliin */
+            .hero-content {
+                margin-top: 40px;
+            }
+            
+            /* KORJAUS: Hero-rating paremmin välitetty */
+            .hero-rating {
+                gap: 20px;
+                margin-bottom: 25px;
+                justify-content: flex-start;
+                font-size: 0.95rem;
             }
             
             .hero h1 {
@@ -84,13 +106,16 @@
             
             .hero-buttons {
                 flex-direction: column;
-                gap: 10px;
-                margin-top: 20px;
+                gap: 12px; /* KORJAUS: Hieman enemmän väliä nappeihin */
+                margin-top: 25px;
+                margin-bottom: 30px; /* KORJAUS: Varmistaa ettei nappi mene piiloon */
+                width: 100%;
             }
             
             .btn {
                 width: 100%;
                 justify-content: center;
+                padding: 14px 30px; /* KORJAUS: Suuremmat napit mobiilissa */
             }
             
             .card {
@@ -130,6 +155,17 @@
             .hero h1 { font-size: 2.2rem; }
             .row-title { font-size: 1.2rem; }
             .card { width: 220px; height: 130px; }
+            
+            /* KORJAUS: Pienemmillä näytöillä vielä enemmän tilaa */
+            .hero-rating {
+                gap: 15px;
+                font-size: 0.85rem;
+            }
+            
+            .nav-links {
+                gap: 12px;
+                font-size: 0.8rem;
+            }
         }
         
         .sound-toggle {
@@ -355,15 +391,16 @@
         
         .nav-links {
             display: flex;
-            gap: 20px;
+            gap: 25px;
             align-items: center;
         }
         
         .nav-links a {
             color: var(--netflix-light);
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             transition: color 0.3s;
+            white-space: nowrap;
         }
         
         .nav-links a:hover { color: var(--netflix-gray); }
@@ -442,9 +479,9 @@
         .hero-rating {
             display: flex;
             align-items: center;
-            gap: 15px;
-            margin-bottom: 20px;
-            font-size: 0.9rem;
+            gap: 20px;
+            margin-bottom: 25px;
+            font-size: 1rem;
             flex-wrap: wrap;
         }
         
@@ -1010,10 +1047,10 @@
         <div class="print-section">
             <h2>Professional Summary</h2>
             <p style="font-size: 11pt; text-align: justify;">
-                Experienced QA professional with 20+ years in software and mobile game testing, progressing from hands-on testing to QA leadership and strategy. 
-                Currently leading QA operations for a major F2P mobile game at Metacore, managing a team of 15 testers. 
-                Proven track record in establishing QA processes, reducing bug escape rates by 40%, managing release pipelines, 
-                and coordinating cross-functional teams in Agile environments. Deep expertise in mobile platforms (iOS/Android), 
+                Experienced QA professional with 20+ years in software and mobile game testing, progressing from hands-on testing to QA leadership and strategy.
+                Currently leading QA operations for a major F2P mobile game at Metacore, managing a team of 15 testers.
+                Proven track record in establishing QA processes, reducing bug escape rates by 40%, managing release pipelines,
+                and coordinating cross-functional teams in Agile environments. Deep expertise in mobile platforms (iOS/Android),
                 automated testing (AWS Device Farm), CI/CD pipelines (Jenkins), and project management tools (Jira).
             </p>
         </div>
